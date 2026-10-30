@@ -1,27 +1,24 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
 
-group='com.github.Swordfish90'
+group = 'com.github.Swordfish90'
 
 android {
-    namespace = "com.swordfish.libretrodroid"
-    compileSdkVersion 33
-    buildToolsVersion "29.0.3"
-
+    namespace 'com.swordfish.libretrodroid'
+    compileSdk 35
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 31
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName '1.0'
         consumerProguardFiles 'consumer-rules.pro'
 
         externalNativeBuild {
             cmake {
-                // Available arguments are inside ${SDK}/cmake/.../android.toolchain.cmake file
                 arguments '-DANDROID_STL=c++_static'
             }
         }
@@ -62,8 +59,7 @@ publishing {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
