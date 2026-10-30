@@ -53,11 +53,6 @@ void VideoLayout::updateForegroundVertices() {
 
     float scaleX = viewportRect.getWidth();
     float scaleY = viewportRect.getHeight();
-    if (contentAspect > screenAspect) {
-        scaleY *= screenAspect / contentAspect;
-    } else {
-        scaleX *= contentAspect / screenAspect;
-    }
 
     float viewportXOffset = (viewportRect.getX() * 2.0f) - (1.0F - viewportRect.getWidth());
     float viewportYOffset = (viewportRect.getY() * 2.0f) - (1.0F - viewportRect.getHeight());
