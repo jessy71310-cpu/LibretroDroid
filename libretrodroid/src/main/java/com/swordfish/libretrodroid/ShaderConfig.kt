@@ -23,6 +23,7 @@ sealed interface ShaderConfig {
     object CRT : ShaderConfig
     object LCD : ShaderConfig
     object Sharp : ShaderConfig
+    object HDR : ShaderConfig
 
     data class CUT(
         val useDynamicBlend: Boolean = true,

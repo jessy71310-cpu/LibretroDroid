@@ -51,6 +51,7 @@ public:
         SHADER_UPSCALE_CUT = 4,
         SHADER_UPSCALE_CUT2 = 5,
         SHADER_UPSCALE_CUT3 = 6,
+        SHADER_HDR = 7,
     };
 
     struct Config {
@@ -69,6 +70,7 @@ private:
     static const std::string defaultSharpFragment;
     static const std::string crtShaderFragment;
     static const std::string lcdShaderFragment;
+    static const std::string hdrShaderFragment;
 
     static const std::unordered_map<std::string, std::string> cutUpscaleParams;
     static const std::string cutUpscaleVertex;

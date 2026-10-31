@@ -125,6 +125,25 @@ const std::string ShaderManager::lcdShaderFragment =
     "  gl_FragColor = vec4(mix(texel, mix(pixelLow, pixelHigh, mask), screenMaskStrength), 1.0);\n"
     "}\n";
 
+const std::string ShaderManager::hdrShaderFragment =
+    "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
+    "#define HIGHP highp\n"
+    "#else\n"
+    "#define HIGHP mediump\n"
+    "precision mediump float;\n"
+    "#endif\n"
+    "\n"
+    "uniform lowp sampler2D texture;\n"
+    "varying HIGHP vec2 coords;\n"
+    "void main() {\n"
+    "  vec3 color = texture2D(texture, coords).rgb;\n"
+    "  color = max(color * 1.12 - 0.025, 0.0);\n"
+    "  color = color / (color + vec3(0.18));\n"
+    "  float luma = dot(color, vec3(0.299, 0.587, 0.114));\n"
+    "  color = mix(vec3(luma), color, 1.12);\n"
+    "  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);\n"
+    "}\n";
+
 const std::string ShaderManager::defaultSharpFragment =
     "#ifdef GL_FRAGMENT_PRECISION_HIGH\n"
     "#define HIGHP highp\n"
@@ -1539,6 +1558,10 @@ ShaderManager::Chain ShaderManager::getShader(const ShaderManager::Config& confi
 
     case Type::SHADER_LCD: {
         return { { {defaultShaderVertex, lcdShaderFragment, true, 1.0 } }, true };
+    }
+
+    case Type::SHADER_HDR: {
+        return { { { defaultShaderVertex, hdrShaderFragment, true, 1.0 } }, true };
     }
 
     case Type::SHADER_SHARP: {
