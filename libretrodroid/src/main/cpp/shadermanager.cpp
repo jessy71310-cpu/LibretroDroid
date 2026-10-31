@@ -137,10 +137,10 @@ const std::string ShaderManager::hdrShaderFragment =
     "varying HIGHP vec2 coords;\n"
     "void main() {\n"
     "  vec3 color = texture2D(texture, coords).rgb;\n"
-    "  color = max(color * 1.12 - 0.025, 0.0);\n"
-    "  color = color / (color + vec3(0.18));\n"
-    "  float luma = dot(color, vec3(0.299, 0.587, 0.114));\n"
-    "  color = mix(vec3(luma), color, 1.12);\n"
+    "  vec3 adjusted = (color - vec3(0.5)) * 1.08 + vec3(0.5);\n"
+    "  float luma = dot(adjusted, vec3(0.299, 0.587, 0.114));\n"
+    "  adjusted = mix(vec3(luma), adjusted, 1.08);\n"
+    "  color = mix(color, adjusted, 0.65);\n"
     "  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);\n"
     "}\n";
 
